@@ -1,0 +1,757 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AHPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AktivacijskiKod">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kod" Type="varchar" MaxLength="50" />
+          <Property Name="korisnik" Type="int" />
+          <Property Name="vrijeme" Type="datetime" />
+          <Property Name="status" Type="int" />
+        </EntityType>
+        <EntityType Name="Alternativa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="50" />
+          <Property Name="projekt" Type="int" />
+          <Property Name="vrijednost" Type="float" />
+        </EntityType>
+        <EntityType Name="Dnevnik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipZapisa" Type="int" />
+          <Property Name="vrijeme" Type="datetime" />
+          <Property Name="dodatneInformacije" Type="nvarchar" MaxLength="150" />
+          <Property Name="stranica" Type="varchar" MaxLength="50" />
+          <Property Name="korisnik" Type="int" />
+          <Property Name="status" Type="int" />
+        </EntityType>
+        <EntityType Name="FazaProjekta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="varchar" MaxLength="50" />
+          <Property Name="prezime" Type="varchar" MaxLength="50" />
+          <Property Name="nadimak" Type="nvarchar" MaxLength="50" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="500" />
+          <Property Name="status" Type="int" />
+          <Property Name="tipKorisnika" Type="int" />
+          <Property Name="aktivan" Type="bit" />
+          <Property Name="vrijemeRegistracije" Type="datetime" />
+          <Property Name="zakljucan" Type="bit" />
+        </EntityType>
+        <EntityType Name="Kriterij">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="50" />
+          <Property Name="idRoditelja" Type="int" />
+          <Property Name="projekt" Type="int" />
+          <Property Name="vrijednost" Type="float" />
+          <Property Name="konzistentno" Type="bit" />
+        </EntityType>
+        <EntityType Name="Projekt">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="500" />
+          <Property Name="datum" Type="datetime" />
+          <Property Name="zadnjaPromjena" Type="datetime" />
+          <Property Name="fazaProjekta" Type="int" Nullable="false" />
+          <Property Name="korisnik" Type="int" />
+          <Property Name="konzistentno" Type="bit" />
+        </EntityType>
+        <EntityType Name="TipKorisnika">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipZapisa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UsporedbaKriterija">
+          <Key>
+            <PropertyRef Name="kriterij1" />
+            <PropertyRef Name="kriterij2" />
+          </Key>
+          <Property Name="kriterij1" Type="int" Nullable="false" />
+          <Property Name="kriterij2" Type="int" Nullable="false" />
+          <Property Name="vrijednost" Type="float" />
+        </EntityType>
+        <Association Name="FK_AktivacijskiKod_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="AktivacijskiKod" Type="Self.AktivacijskiKod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AktivacijskiKod">
+              <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alternativa_Odluka">
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="0..1" />
+          <End Role="Alternativa" Type="Self.Alternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekt">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Alternativa">
+              <PropertyRef Name="projekt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dnevnik_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Dnevnik" Type="Self.Dnevnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dnevnik">
+              <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dnevnik_TipZapisa">
+          <End Role="TipZapisa" Type="Self.TipZapisa" Multiplicity="0..1" />
+          <End Role="Dnevnik" Type="Self.Dnevnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipZapisa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dnevnik">
+              <PropertyRef Name="tipZapisa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_TipKorisnika">
+          <End Role="TipKorisnika" Type="Self.TipKorisnika" Multiplicity="0..1" />
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipKorisnika">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Korisnik">
+              <PropertyRef Name="tipKorisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kriterij_Kriterij">
+          <End Role="Kriterij" Type="Self.Kriterij" Multiplicity="0..1" />
+          <End Role="Kriterij1" Type="Self.Kriterij" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Kriterij1">
+              <PropertyRef Name="idRoditelja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kriterij_Odluka">
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="0..1" />
+          <End Role="Kriterij" Type="Self.Kriterij" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekt">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Kriterij">
+              <PropertyRef Name="projekt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projekt_FazaProjekta">
+          <End Role="FazaProjekta" Type="Self.FazaProjekta" Multiplicity="1" />
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FazaProjekta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projekt">
+              <PropertyRef Name="fazaProjekta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projekt_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projekt">
+              <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsporedbaKriterija_Kriterij">
+          <End Role="Kriterij" Type="Self.Kriterij" Multiplicity="1" />
+          <End Role="UsporedbaKriterija" Type="Self.UsporedbaKriterija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsporedbaKriterija">
+              <PropertyRef Name="kriterij1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsporedbaKriterija_Kriterij1">
+          <End Role="Kriterij" Type="Self.Kriterij" Multiplicity="1" />
+          <End Role="UsporedbaKriterija" Type="Self.UsporedbaKriterija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsporedbaKriterija">
+              <PropertyRef Name="kriterij2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AHPModelStoreContainer">
+          <EntitySet Name="AktivacijskiKod" EntityType="Self.AktivacijskiKod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alternativa" EntityType="Self.Alternativa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dnevnik" EntityType="Self.Dnevnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FazaProjekta" EntityType="Self.FazaProjekta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kriterij" EntityType="Self.Kriterij" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projekt" EntityType="Self.Projekt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipKorisnika" EntityType="Self.TipKorisnika" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipZapisa" EntityType="Self.TipZapisa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsporedbaKriterija" EntityType="Self.UsporedbaKriterija" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AktivacijskiKod_Korisnik" Association="Self.FK_AktivacijskiKod_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="AktivacijskiKod" EntitySet="AktivacijskiKod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alternativa_Odluka" Association="Self.FK_Alternativa_Odluka">
+            <End Role="Projekt" EntitySet="Projekt" />
+            <End Role="Alternativa" EntitySet="Alternativa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dnevnik_Korisnik" Association="Self.FK_Dnevnik_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Dnevnik" EntitySet="Dnevnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dnevnik_TipZapisa" Association="Self.FK_Dnevnik_TipZapisa">
+            <End Role="TipZapisa" EntitySet="TipZapisa" />
+            <End Role="Dnevnik" EntitySet="Dnevnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_TipKorisnika" Association="Self.FK_Korisnik_TipKorisnika">
+            <End Role="TipKorisnika" EntitySet="TipKorisnika" />
+            <End Role="Korisnik" EntitySet="Korisnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kriterij_Kriterij" Association="Self.FK_Kriterij_Kriterij">
+            <End Role="Kriterij" EntitySet="Kriterij" />
+            <End Role="Kriterij1" EntitySet="Kriterij" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kriterij_Odluka" Association="Self.FK_Kriterij_Odluka">
+            <End Role="Projekt" EntitySet="Projekt" />
+            <End Role="Kriterij" EntitySet="Kriterij" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projekt_FazaProjekta" Association="Self.FK_Projekt_FazaProjekta">
+            <End Role="FazaProjekta" EntitySet="FazaProjekta" />
+            <End Role="Projekt" EntitySet="Projekt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projekt_Korisnik" Association="Self.FK_Projekt_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Projekt" EntitySet="Projekt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsporedbaKriterija_Kriterij" Association="Self.FK_UsporedbaKriterija_Kriterij">
+            <End Role="Kriterij" EntitySet="Kriterij" />
+            <End Role="UsporedbaKriterija" EntitySet="UsporedbaKriterija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsporedbaKriterija_Kriterij1" Association="Self.FK_UsporedbaKriterija_Kriterij1">
+            <End Role="Kriterij" EntitySet="Kriterij" />
+            <End Role="UsporedbaKriterija" EntitySet="UsporedbaKriterija" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AHPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AktivacijskiKod">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="korisnik" Type="Int32" />
+          <Property Name="vrijeme" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.FK_AktivacijskiKod_Korisnik" FromRole="AktivacijskiKod" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="Alternativa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="projekt" Type="Int32" />
+          <Property Name="vrijednost" Type="Double" />
+          <NavigationProperty Name="Projekt1" Relationship="Self.FK_Alternativa_Odluka" FromRole="Alternativa" ToRole="Projekt" />
+        </EntityType>
+        <EntityType Name="Dnevnik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipZapisa" Type="Int32" />
+          <Property Name="vrijeme" Type="DateTime" Precision="3" />
+          <Property Name="dodatneInformacije" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="stranica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="korisnik" Type="Int32" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.FK_Dnevnik_Korisnik" FromRole="Dnevnik" ToRole="Korisnik" />
+          <NavigationProperty Name="TipZapisa1" Relationship="Self.FK_Dnevnik_TipZapisa" FromRole="Dnevnik" ToRole="TipZapisa" />
+        </EntityType>
+        <EntityType Name="FazaProjekta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Projekts" Relationship="Self.FK_Projekt_FazaProjekta" FromRole="FazaProjekta" ToRole="Projekt" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nadimak" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lozinka" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="tipKorisnika" Type="Int32" />
+          <Property Name="aktivan" Type="Boolean" />
+          <Property Name="vrijemeRegistracije" Type="DateTime" Precision="3" />
+          <Property Name="zakljucan" Type="Boolean" />
+          <NavigationProperty Name="AktivacijskiKods" Relationship="Self.FK_AktivacijskiKod_Korisnik" FromRole="Korisnik" ToRole="AktivacijskiKod" />
+          <NavigationProperty Name="Dnevniks" Relationship="Self.FK_Dnevnik_Korisnik" FromRole="Korisnik" ToRole="Dnevnik" />
+          <NavigationProperty Name="TipKorisnika1" Relationship="Self.FK_Korisnik_TipKorisnika" FromRole="Korisnik" ToRole="TipKorisnika" />
+          <NavigationProperty Name="Projekts" Relationship="Self.FK_Projekt_Korisnik" FromRole="Korisnik" ToRole="Projekt" />
+        </EntityType>
+        <EntityType Name="Projekt">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="datum" Type="DateTime" Precision="3" />
+          <Property Name="zadnjaPromjena" Type="DateTime" Precision="3" />
+          <Property Name="fazaProjekta" Type="Int32" Nullable="false" />
+          <Property Name="korisnik" Type="Int32" />
+          <NavigationProperty Name="Alternativas" Relationship="Self.FK_Alternativa_Odluka" FromRole="Projekt" ToRole="Alternativa" />
+          <NavigationProperty Name="FazaProjekta1" Relationship="Self.FK_Projekt_FazaProjekta" FromRole="Projekt" ToRole="FazaProjekta" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.FK_Projekt_Korisnik" FromRole="Projekt" ToRole="Korisnik" />
+          <NavigationProperty Name="Kriterijs" Relationship="AHPModel.FK_Kriterij_Odluka" FromRole="Projekt" ToRole="Kriterij" />
+          <Property Name="konzistentno" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TipKorisnika">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Korisniks" Relationship="Self.FK_Korisnik_TipKorisnika" FromRole="TipKorisnika" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="TipZapisa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dnevniks" Relationship="Self.FK_Dnevnik_TipZapisa" FromRole="TipZapisa" ToRole="Dnevnik" />
+        </EntityType>
+        <Association Name="FK_AktivacijskiKod_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="AktivacijskiKod" Type="Self.AktivacijskiKod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AktivacijskiKod">
+              <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alternativa_Odluka">
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="0..1" />
+          <End Role="Alternativa" Type="Self.Alternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekt">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Alternativa">
+              <PropertyRef Name="projekt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dnevnik_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Dnevnik" Type="Self.Dnevnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dnevnik">
+              <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dnevnik_TipZapisa">
+          <End Role="TipZapisa" Type="Self.TipZapisa" Multiplicity="0..1" />
+          <End Role="Dnevnik" Type="Self.Dnevnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipZapisa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dnevnik">
+              <PropertyRef Name="tipZapisa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projekt_FazaProjekta">
+          <End Role="FazaProjekta" Type="Self.FazaProjekta" Multiplicity="1" />
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FazaProjekta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projekt">
+              <PropertyRef Name="fazaProjekta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_TipKorisnika">
+          <End Role="TipKorisnika" Type="Self.TipKorisnika" Multiplicity="0..1" />
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipKorisnika">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Korisnik">
+              <PropertyRef Name="tipKorisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projekt_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projekt">
+              <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AHPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AktivacijskiKods" EntityType="Self.AktivacijskiKod" />
+          <EntitySet Name="Alternativas" EntityType="Self.Alternativa" />
+          <EntitySet Name="Dnevniks" EntityType="Self.Dnevnik" />
+          <EntitySet Name="FazaProjektas" EntityType="Self.FazaProjekta" />
+          <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+          <EntitySet Name="Projekts" EntityType="Self.Projekt" />
+          <EntitySet Name="TipKorisnikas" EntityType="Self.TipKorisnika" />
+          <EntitySet Name="TipZapisas" EntityType="Self.TipZapisa" />
+          <AssociationSet Name="FK_AktivacijskiKod_Korisnik" Association="Self.FK_AktivacijskiKod_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="AktivacijskiKod" EntitySet="AktivacijskiKods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alternativa_Odluka" Association="Self.FK_Alternativa_Odluka">
+            <End Role="Projekt" EntitySet="Projekts" />
+            <End Role="Alternativa" EntitySet="Alternativas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dnevnik_Korisnik" Association="Self.FK_Dnevnik_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Dnevnik" EntitySet="Dnevniks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dnevnik_TipZapisa" Association="Self.FK_Dnevnik_TipZapisa">
+            <End Role="TipZapisa" EntitySet="TipZapisas" />
+            <End Role="Dnevnik" EntitySet="Dnevniks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projekt_FazaProjekta" Association="Self.FK_Projekt_FazaProjekta">
+            <End Role="FazaProjekta" EntitySet="FazaProjektas" />
+            <End Role="Projekt" EntitySet="Projekts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_TipKorisnika" Association="Self.FK_Korisnik_TipKorisnika">
+            <End Role="TipKorisnika" EntitySet="TipKorisnikas" />
+            <End Role="Korisnik" EntitySet="Korisniks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projekt_Korisnik" Association="Self.FK_Projekt_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Projekt" EntitySet="Projekts" />
+          </AssociationSet>
+          <EntitySet Name="Kriterijs" EntityType="AHPModel.Kriterij" />
+          <EntitySet Name="UsporedbaKriterijas" EntityType="AHPModel.UsporedbaKriterija" />
+          <AssociationSet Name="FK_Kriterij_Kriterij" Association="AHPModel.FK_Kriterij_Kriterij">
+            <End Role="Kriterij" EntitySet="Kriterijs" />
+            <End Role="Kriterij1" EntitySet="Kriterijs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kriterij_Odluka" Association="AHPModel.FK_Kriterij_Odluka">
+            <End Role="Projekt" EntitySet="Projekts" />
+            <End Role="Kriterij" EntitySet="Kriterijs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsporedbaKriterija_Kriterij" Association="AHPModel.FK_UsporedbaKriterija_Kriterij">
+            <End Role="Kriterij" EntitySet="Kriterijs" />
+            <End Role="UsporedbaKriterija" EntitySet="UsporedbaKriterijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsporedbaKriterija_Kriterij1" Association="AHPModel.FK_UsporedbaKriterija_Kriterij1">
+            <End Role="Kriterij" EntitySet="Kriterijs" />
+            <End Role="UsporedbaKriterija" EntitySet="UsporedbaKriterijas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kriterij">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="opis" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idRoditelja" Type="Int32" />
+          <Property Name="projekt" Type="Int32" />
+          <Property Name="vrijednost" Type="Double" />
+          <NavigationProperty Name="Kriterij1" Relationship="AHPModel.FK_Kriterij_Kriterij" FromRole="Kriterij" ToRole="Kriterij1" />
+          <NavigationProperty Name="Kriterij2" Relationship="AHPModel.FK_Kriterij_Kriterij" FromRole="Kriterij1" ToRole="Kriterij" />
+          <NavigationProperty Name="Projekt1" Relationship="AHPModel.FK_Kriterij_Odluka" FromRole="Kriterij" ToRole="Projekt" />
+          <NavigationProperty Name="UsporedbaKriterijas" Relationship="AHPModel.FK_UsporedbaKriterija_Kriterij" FromRole="Kriterij" ToRole="UsporedbaKriterija" />
+          <NavigationProperty Name="UsporedbaKriterijas1" Relationship="AHPModel.FK_UsporedbaKriterija_Kriterij1" FromRole="Kriterij" ToRole="UsporedbaKriterija" />
+          <Property Name="konzistentno" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UsporedbaKriterija">
+          <Key>
+            <PropertyRef Name="kriterij1" />
+            <PropertyRef Name="kriterij2" />
+          </Key>
+          <Property Name="kriterij1" Type="Int32" Nullable="false" />
+          <Property Name="kriterij2" Type="Int32" Nullable="false" />
+          <Property Name="vrijednost" Type="Double" />
+          <NavigationProperty Name="Kriterij" Relationship="AHPModel.FK_UsporedbaKriterija_Kriterij" FromRole="UsporedbaKriterija" ToRole="Kriterij" />
+          <NavigationProperty Name="Kriterij3" Relationship="AHPModel.FK_UsporedbaKriterija_Kriterij1" FromRole="UsporedbaKriterija" ToRole="Kriterij" />
+        </EntityType>
+        <Association Name="FK_Kriterij_Kriterij">
+          <End Type="AHPModel.Kriterij" Role="Kriterij" Multiplicity="0..1" />
+          <End Type="AHPModel.Kriterij" Role="Kriterij1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Kriterij1">
+              <PropertyRef Name="idRoditelja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kriterij_Odluka">
+          <End Type="AHPModel.Projekt" Role="Projekt" Multiplicity="0..1" />
+          <End Type="AHPModel.Kriterij" Role="Kriterij" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekt">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Kriterij">
+              <PropertyRef Name="projekt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsporedbaKriterija_Kriterij">
+          <End Type="AHPModel.Kriterij" Role="Kriterij" Multiplicity="1" />
+          <End Type="AHPModel.UsporedbaKriterija" Role="UsporedbaKriterija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsporedbaKriterija">
+              <PropertyRef Name="kriterij1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsporedbaKriterija_Kriterij1">
+          <End Type="AHPModel.Kriterij" Role="Kriterij" Multiplicity="1" />
+          <End Type="AHPModel.UsporedbaKriterija" Role="UsporedbaKriterija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsporedbaKriterija">
+              <PropertyRef Name="kriterij2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AHPModelStoreContainer" CdmEntityContainer="AHPEntities">
+          <EntitySetMapping Name="AktivacijskiKods">
+            <EntityTypeMapping TypeName="AHPModel.AktivacijskiKod">
+              <MappingFragment StoreEntitySet="AktivacijskiKod">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="korisnik" ColumnName="korisnik" />
+                <ScalarProperty Name="vrijeme" ColumnName="vrijeme" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alternativas">
+            <EntityTypeMapping TypeName="AHPModel.Alternativa">
+              <MappingFragment StoreEntitySet="Alternativa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="projekt" ColumnName="projekt" />
+                <ScalarProperty Name="vrijednost" ColumnName="vrijednost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dnevniks">
+            <EntityTypeMapping TypeName="AHPModel.Dnevnik">
+              <MappingFragment StoreEntitySet="Dnevnik">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipZapisa" ColumnName="tipZapisa" />
+                <ScalarProperty Name="vrijeme" ColumnName="vrijeme" />
+                <ScalarProperty Name="dodatneInformacije" ColumnName="dodatneInformacije" />
+                <ScalarProperty Name="stranica" ColumnName="stranica" />
+                <ScalarProperty Name="korisnik" ColumnName="korisnik" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FazaProjektas">
+            <EntityTypeMapping TypeName="AHPModel.FazaProjekta">
+              <MappingFragment StoreEntitySet="FazaProjekta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="AHPModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="nadimak" ColumnName="nadimak" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="tipKorisnika" ColumnName="tipKorisnika" />
+                <ScalarProperty Name="aktivan" ColumnName="aktivan" />
+                <ScalarProperty Name="vrijemeRegistracije" ColumnName="vrijemeRegistracije" />
+                <ScalarProperty Name="zakljucan" ColumnName="zakljucan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projekts">
+            <EntityTypeMapping TypeName="AHPModel.Projekt">
+              <MappingFragment StoreEntitySet="Projekt">
+                <ScalarProperty Name="konzistentno" ColumnName="konzistentno" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="zadnjaPromjena" ColumnName="zadnjaPromjena" />
+                <ScalarProperty Name="fazaProjekta" ColumnName="fazaProjekta" />
+                <ScalarProperty Name="korisnik" ColumnName="korisnik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipKorisnikas">
+            <EntityTypeMapping TypeName="AHPModel.TipKorisnika">
+              <MappingFragment StoreEntitySet="TipKorisnika">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipZapisas">
+            <EntityTypeMapping TypeName="AHPModel.TipZapisa">
+              <MappingFragment StoreEntitySet="TipZapisa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kriterijs">
+            <EntityTypeMapping TypeName="AHPModel.Kriterij">
+              <MappingFragment StoreEntitySet="Kriterij">
+                <ScalarProperty Name="konzistentno" ColumnName="konzistentno" />
+                <ScalarProperty Name="vrijednost" ColumnName="vrijednost" />
+                <ScalarProperty Name="projekt" ColumnName="projekt" />
+                <ScalarProperty Name="idRoditelja" ColumnName="idRoditelja" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsporedbaKriterijas">
+            <EntityTypeMapping TypeName="AHPModel.UsporedbaKriterija">
+              <MappingFragment StoreEntitySet="UsporedbaKriterija">
+                <ScalarProperty Name="vrijednost" ColumnName="vrijednost" />
+                <ScalarProperty Name="kriterij2" ColumnName="kriterij2" />
+                <ScalarProperty Name="kriterij1" ColumnName="kriterij1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

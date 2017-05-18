@@ -1,0 +1,49 @@
+﻿@model ProjektListViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Shared/KoraciNavigacija.cshtml", Model.IdProjekta)
+@Html.Partial("~/Views/Shared/NovaAlternativaPopup.cshtml", Model)
+@Html.Partial("~/Views/Shared/UrediAlternativuPopup.cshtml")
+
+<div class="projekt_controller_container">
+
+    <h2 class="srednji_naslov" onclick="prikaziPopup()">Alternative</h2>
+    <table class="tablica_alternativa">
+        @foreach (Alternativa alternativa in Model.ListaAlternativa)
+        {
+            var idAlternative = alternativa.id;
+            var nazivAlternative = alternativa.naziv;
+            var opisAlternative = alternativa.opis;
+
+            <tr class="tablica_alternativa_redak">
+                <td>
+                    @alternativa.naziv
+                </td>
+                <td>
+                    @alternativa.opis
+                </td>
+                <td>
+                    @if(alternativa.vrijednost == null)
+                    {
+                        <p>Vrijednost alternative još nije dostupna</p>
+                    }else
+                    {
+                        @alternativa.vrijednost
+                    }
+                </td>
+                <td>
+                    <a onclick="@String.Format("prikaziPopupUrediAlternativu('{0}','{1}','{2}')", idAlternative, nazivAlternative, opisAlternative);">Uredi alternativu</a>
+                </td>
+                <td>
+                    <a onclick="location.href='@Url.Action("BrisiAlternativu", "Alternative", new { idAlternative = alternativa.id })'">Briši alternativu</a>
+                </td>
+            </tr>
+        }
+        
+    </table>
+    <div class="gumb_dodaj_alternativu">Dodaj alternativu</div>
+
+</div>

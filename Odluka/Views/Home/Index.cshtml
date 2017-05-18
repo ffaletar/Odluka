@@ -1,0 +1,42 @@
+﻿@model List<Odluka.Models.Projekt>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="unutarnji_wrapper">
+    <div class="unutarnji_wrapper_lijevi">
+        <div class="unutarnji_wrapper_lijevi_naslov">
+            <h1>Projekti</h1>
+        </div>
+        <div class="unutarnji_wrapper_lijevi_projekti">
+            @if (Model != null)
+            {
+                foreach (var projekt in Model)
+                {
+                    <a href="/Projekt/Info/@projekt.id">
+                        <div class="projekt_kartica">
+                            <div class="projekt_kartica_gornji_dio">
+                                <h2>@projekt.naziv</h2>
+                                <h3>@projekt.FazaProjekta1.naziv</h3>
+                            </div>
+                            <div class="projekt_kartica_donji_dio">
+                                <div class="projekt_datum_div">@projekt.datum</div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }else
+            {
+                <p>Trenutno nemate projekata.</p>
+            }
+
+        </div>
+        <a>Kreiraj novi projekt</a>
+
+    </div>
+    <div class="unutarnji_wrapper_desni"></div>
+
+</div>
+

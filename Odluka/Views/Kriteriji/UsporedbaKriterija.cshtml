@@ -1,0 +1,42 @@
+﻿@model ProjektListViewModel
+@{
+    ViewBag.Title = "UsporedbaKriterija";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/Content/Angular.js"></script>
+}
+@Html.Partial("~/Views/Shared/KoraciNavigacija.cshtml", Model.IdProjekta)
+<h2>UsporedbaKriterija</h2>
+
+@if (Model != null && Model.ListaUsporedbaKriterija.Count() > 0)
+{
+    <div ng-app="AngularApp">
+        <div ng-controller="UsporedbeController">
+            @foreach (UsporedbaKriterija usporedbaKriterija in Model.ListaUsporedbaKriterija)
+            {
+                <h2 ng-style="backColor">@usporedbaKriterija.Kriterij.naziv - @usporedbaKriterija.Kriterij3.naziv</h2>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 9)'>9</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 8)'>8</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 7)'>7</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 6)'>6</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 5)'>5</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 4)'>4</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 3)'>3</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 2)'>2</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 1)'>1</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.5)'>2</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.33333)'>3</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.25)'>4</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.2)'>5</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.16667)'>6</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.14285)'>7</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.125)'>8</a>
+                <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.11111)'>9</a>
+            }
+        </div>
+        {{aaa}}
+        @* //TODO u donjem desnom kutu kvačica za konzistentnost, kao u android Floating action button *@
+    </div>
+}
+

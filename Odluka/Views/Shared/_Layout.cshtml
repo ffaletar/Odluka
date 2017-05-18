@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_Layout</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="~/Content/Odluka.js"></script>
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/Content/css")
+    @RenderSection("scripts", required: false)
+    @*//TODO popraviti da se učitavaju skripte iz bundles umjesto normalno*@
+</head>
+<body>
+    <header class="glavna_zaglavlje">
+
+    </header>
+    <main class="glavna_main">
+        @RenderBody()
+    </main>
+    @*<footer class="glavna_podnozje">
+
+    </footer>*@
+</body>
+</html>

@@ -1,0 +1,16 @@
+﻿@model int
+<div class="koraci_navigacija">
+
+    <div style="width: 60%; margin: 0 auto; height: 100%; display: flex;">
+
+        <a class="koraci_navigacija_gumb" onclick="location.href='@Url.Action("OsnovneInformacije", "Projekt", new { id = Model })'"><div>Osnovne informacije</div></a>
+        <a class="koraci_navigacija_gumb" onclick="location.href='@Url.Action("Index", "Alternative", new { id = Model })'"><div>Alternative</div></a>
+        <a class="koraci_navigacija_gumb" onclick="location.href='@Url.Action("Index", "Kriteriji", new { id = Model })'"><div>Kriteriji</div></a>
+        <a class="koraci_navigacija_gumb" onclick="location.href='@Url.Action("NovaAlternativa", "Alternative", new { nazivAlternative = "Filip", opisAlternative = "aaa"})'"><div>Usporedbe</div></a>
+        <a class="koraci_navigacija_gumb" onclick="location.href='@Url.Action("Index", "Home", new { id = 17 })'"><div>Rezultat</div></a>
+
+</div>
+    @*href="Url.Action('Info', 'Projekt', new { id = '17' }) %>"*@
+
+
+</div>

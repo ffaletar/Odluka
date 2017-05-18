@@ -1,0 +1,67 @@
+﻿@model ProjektViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<div class="projekt_procesna_linija">
+
+</div>*@
+
+
+<div class="projekt_controller_container">
+
+    <h1 class="veliki_naslov">@Model.Projekt.naziv</h1>
+    <hr />
+    <div class="opis_projekta_container">
+        <div class="opis_projekta_lijevi_container">
+            <h2 class="srednji_naslov" onclick="location.href='@Url.Action("Index", "Alternative", new { id = Model.Projekt.id })'">Alternative</h2>
+            <div class="lista_alternativa_kriterija">
+                @foreach (Alternativa alternativa in Model.ListaAlternativa)
+                {
+                    <div class="alternativa_redak">
+                        <p class="alternativa_redak_naziv">@alternativa.naziv</p>
+                        <p class="alternativa_redak_opis">@alternativa.opis</p>
+                        @if (alternativa.vrijednost != null)
+                        {
+                            <p class="alternativa_redak_rezultat">@alternativa.vrijednost</p>
+                        }
+                        else
+                        {
+                            <p class="alternativa_redak_rezultat">Rezultat još nije dostupan</p>
+                        }
+                        <div class="alternativa_redak_akcije">
+                            <img class="ikonice" src="~/Images/settings-icon.png" />
+                            <img class="ikonice" src="~/Images/delete-xxl.png" />
+                        </div>
+                        
+                    </div>
+                }
+                <div class="gumb_dodaj_alternativu">
+                    <img class="ikonice" src="~/Images/plus_icon.png" />
+                    <p>Nova alternativa</p>
+                </div>
+            </div>
+            <h2 class="srednji_naslov" onclick="location.href='@Url.Action("Index", "Kriteriji", new { id = Model.Projekt.id })'">Kriteriji</h2>
+            <div class="lista_alternativa_kriterija">
+                @foreach (Kriterij kriterij in Model.ListaKriterija)
+                {
+                    <p>@kriterij.naziv</p>
+                }
+            </div>
+        </div>
+        <div class="detalji_projekta">
+
+
+        </div>
+    </div>
+    
+
+   
+
+</div>
+
+
+
+

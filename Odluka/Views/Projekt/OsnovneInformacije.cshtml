@@ -1,0 +1,17 @@
+﻿@model Odluka.ViewModels.ProjektViewModel
+@{
+    ViewBag.Title = "OsnovneInformacije";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Shared/KoraciNavigacija.cshtml", Model.Projekt.id)
+
+<div class="projekt_controller_container">
+
+    <h1>@Model.Projekt.naziv</h1>
+    <h2>@Model.Projekt.FazaProjekta1.naziv</h2>
+    <p>@Model.Projekt.datum</p>
+    <p>@Model.Projekt.opis</p>
+    <p>Broj alternativa: @Model.BrojAlternativa</p>
+
+</div>

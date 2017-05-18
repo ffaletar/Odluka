@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bc8ca401c8074d8ab82d79efcc03ee26" Name="Diagram1">
+        <EntityTypeShape EntityType="AHPModel.AktivacijskiKod" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.Alternativa" Width="1.5" PointX="7.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.Dnevnik" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.FazaProjekta" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.Korisnik" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.Projekt" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.TipKorisnika" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHPModel.TipZapisa" Width="1.5" PointX="6" PointY="17.625" IsExpanded="true" />
+        <AssociationConnector Association="AHPModel.FK_AktivacijskiKod_Korisnik" ManuallyRouted="false" />
+        <AssociationConnector Association="AHPModel.FK_Alternativa_Odluka" ManuallyRouted="false" />
+        <AssociationConnector Association="AHPModel.FK_Dnevnik_Korisnik" ManuallyRouted="false" />
+        <AssociationConnector Association="AHPModel.FK_Dnevnik_TipZapisa" ManuallyRouted="false" />
+        <AssociationConnector Association="AHPModel.FK_Projekt_FazaProjekta" ManuallyRouted="false" />
+        <AssociationConnector Association="AHPModel.FK_Korisnik_TipKorisnika" ManuallyRouted="false" />
+        <AssociationConnector Association="AHPModel.FK_Projekt_Korisnik" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AHPModel.Kriterij" Width="1.5" PointX="7.5" PointY="1.875" />
+        <EntityTypeShape EntityType="AHPModel.UsporedbaKriterija" Width="1.5" PointX="9.75" PointY="2.5" />
+        <AssociationConnector Association="AHPModel.FK_Kriterij_Kriterij" />
+        <AssociationConnector Association="AHPModel.FK_Kriterij_Odluka" />
+        <AssociationConnector Association="AHPModel.FK_UsporedbaKriterija_Kriterij" />
+        <AssociationConnector Association="AHPModel.FK_UsporedbaKriterija_Kriterij1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

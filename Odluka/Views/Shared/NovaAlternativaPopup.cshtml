@@ -1,0 +1,18 @@
+﻿@model ProjektListViewModel
+
+<div class="popup" id="alternativa_popup">
+    <div class="nova_alternativa_popup_header">
+
+    </div>
+    <div class="nova_alternativa_popup_glavni">
+        <form action="/Alternative/NovaAlternativa">
+            <input type="hidden" id="id_projekt" name="idProjekta" value="@Model.IdProjekta"/>
+            <label for="naziv_alternative_input">Naziv alternative</label>
+            <input type="text" id="naziv_alternative_input" name="nazivAlternative"/>
+            <label for="opis_alternative_input">Opis alternative</label>
+            <input type="text" id="opis_alternative_input" name="opisAlternative" />
+            <input type="submit" value="Dodaj alternativu"/>
+        </form>
+    </div>
+
+</div>
