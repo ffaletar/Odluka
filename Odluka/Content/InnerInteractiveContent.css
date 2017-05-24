@@ -1,0 +1,166 @@
+﻿.projekt_kartica_container{
+    background-color: #ffffff;
+    width: 250px;
+    height: 250px;
+    position: relative;
+    margin: 10px;
+    border: 1px solid #c4c4c4;
+    -moz-box-shadow: 0 0 15px #878686;
+    -webkit-box-shadow: 0 0 15px #878686;
+    box-shadow: 0 0 15px #b5b5b5;
+    display: inline-block;
+}
+.projekt_kartica_standard{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    display: inline-block;
+}
+.projekt_kartica_standard_main_dio_container{
+    position: relative;
+    padding: 5px;
+    width: calc(100% - 10px);
+    height: calc(98% - 10px);
+    top: 0;
+}
+.projekt_kartica_standard_main_dio{
+    position: relative;
+    display:inline-block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+.faza_projekta_standard_container{
+    width:100%;
+    height: 25%;
+    position: relative;
+    
+}
+.faza_projekta_standard_container img{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin-left: calc(50% - 15px);
+	margin-right: calc(50% - 15px);
+    bottom: 10px;
+}
+.naziv_projekta_standard_container{
+    width:100%;
+    height: 20%;
+    position: relative;
+    text-align: center;
+    display: table;
+    overflow: hidden;
+}
+.naziv_projekta_standard_container h1{
+    font-size: 25px;
+    color: #3d3d3d;
+    font-family: 'Book Antiqua';
+    display: table-cell;
+    vertical-align: middle;
+}
+.opis_projekta_standard_container{
+    width:100%;
+    height: 40%;
+    position: relative;
+}
+.opis_projekta_standard_container p{
+    font-family: 'Book Antiqua';
+    font-size: 15px;
+    text-align:center;
+    padding-top: 10px;
+    color: #535353;
+}
+.datum_krairanja_projekta_standard_container{
+    width:100%;
+    height: 15%;
+    position: relative;
+}
+.datum_krairanja_projekta_standard_container p{
+    font-family: 'Book Antiqua';
+    font-size: 15px;
+    text-align: center;
+    color:#535353;
+    font-style: italic;
+}
+.projekt_kartica_standard_donja_traka_1{
+    position: relative;
+    width: 100%;
+    height: 2%;
+    background-color: #67a144;
+}
+.projekt_kartica_standard_donja_traka_2{
+    position: relative;
+    width: 100%;
+    height: 2%;
+    background-color: #3d3d3d;
+}
+.projekt_kartica_standard_donja_traka_3{
+    position: relative;
+    width: 100%;
+    height: 2%;
+    background-color: #293c83;
+}
+.projekt_kartica_hover{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    display: inline-block;
+    display: none;
+}
+.projekt_kartica_hover_main_dio_container{
+    position: relative;
+    padding: 5px;
+    width: calc(100% - 10px);
+    height: calc(75% - 10px);
+    top: 0;
+    background-color: rgba(61, 61, 61, 0.93);
+}
+.projekt_kartica_hover_main_dio{
+    position: relative;
+    display:inline-block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    /*background-color: green;*/
+}
+.projekt_kartica_hover_link1{
+    position: relative;
+    width: 100%;
+    height: 25%;
+    background-color: #67a144;
+    display: table;
+}
+.projekt_kartica_hover_link1:hover{
+    cursor: pointer;
+}
+.projekt_kartica_hover_link2:hover{
+    cursor: pointer;
+}
+.projekt_kartica_hover_link2:hover{
+    cursor: pointer;
+}
+.projekt_kartica_hover_link2{
+    position: relative;
+    width: 100%;
+    height: 25%;
+    background-color: #3d3d3d;
+    display: table;
+}
+.projekt_kartica_hover_link3{
+    position: relative;
+    width: 100%;
+    height: 25%;
+    background-color: #293c83;
+    display: table;
+}
+.projekt_kartica_link{
+    font-size: 25px;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Book Antiqua';
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    

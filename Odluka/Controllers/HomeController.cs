@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Odluka.Models;
+using Odluka.ViewModels;
 
 namespace Odluka.Controllers
 {
@@ -12,6 +13,11 @@ namespace Odluka.Controllers
         // GET: Home
         public ActionResult Index(int? id)
         {
+            int idKorisnika;
+
+            idKorisnika = id ?? default(int);
+
+
             List<Projekt> listaProjekata = null;
             if (id == null)
             {
@@ -19,11 +25,18 @@ namespace Odluka.Controllers
             }else
             {
                 AHPEntities db = new AHPEntities();
-                listaProjekata = db.Projekts.Where(c => c.korisnik == id).ToList();
+                listaProjekata = db.Projekts.Where(c => c.korisnik == id).OrderByDescending(c => c.zadnjaPromjena).ToList();
             }
-            
 
-            return View(listaProjekata);
+
+            ProjektListViewModel projektAlternativaViewModel = new ProjektListViewModel()
+            {
+                idKorisnika = idKorisnika,
+                ListaProjekata = listaProjekata
+            };
+
+
+            return View(projektAlternativaViewModel);
         }
     }
 }

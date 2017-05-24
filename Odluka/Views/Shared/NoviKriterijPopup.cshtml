@@ -1,19 +1,26 @@
 ﻿
 
-<div class="popup" id="kriterij_popup">
-    <div class="novi_kriterij_popup_header">
-
+<div class="popup" id="novi_kriterij_popup">
+    <div class="popup_wrapper">
+        <div class="popup_header">
+            <div class="popup_header_wrapper">
+                <h1 id="novi_kriterij_heading">
+                    Novi kriterij
+                </h1>
+            </div>
+        </div>
+        <div class="popup_glavni">
+            <div class="popup_glavni_wrapper">
+                <form action="/Kriteriji/NoviKriterij" id="popup_forma">
+                    <input type="hidden" id="id_projekt" name="idProjekta" />
+                    <input type="hidden" id="id_roditelja" name="idRoditelja" />
+                    <label for="popup_naziv_input">Naziv kriterija</label><br />
+                    <input type="text" id="popup_naziv_input" name="nazivKriterija" /><br />
+                    <label for="popup_opis_input">Opis kriterija</label><br />
+                    <textarea type="text" id="popup_opis_input" name="opisKriterija"  cols="40" rows="5"></textarea>
+                    <input type="submit" value="Dodaj kriterij" id="popup_gumb"/>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="novi_kriterij_popup_glavni">
-        <form action="/Kriteriji/NoviKriterij">
-            <input type="hidden" id="id_projekt" name="idProjekta" />
-            <input type="hidden" id="id_roditelja" name="idRoditelja" />
-            <label for="naziv_kriterija_input">Naziv kriterija</label>
-            <input type="text" id="naziv_kriterija_input" name="nazivKriterija" />
-            <label for="opis_kriterija_input">Opis kriterija</label>
-            <input type="text" id="opis_kriterija_input" name="opisKriterija" />
-            <input type="submit" value="Dodaj kriterij" />
-        </form>
-    </div>
-
 </div>

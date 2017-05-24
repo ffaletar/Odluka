@@ -21,8 +21,10 @@ namespace Odluka.Models
         public string stranica { get; set; }
         public Nullable<int> korisnik { get; set; }
         public Nullable<int> status { get; set; }
+        public Nullable<int> projekt { get; set; }
     
         public virtual Korisnik Korisnik1 { get; set; }
         public virtual TipZapisa TipZapisa1 { get; set; }
+        public virtual Projekt Projekt1 { get; set; }
     }
 }

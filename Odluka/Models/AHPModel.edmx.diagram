@@ -26,6 +26,7 @@
         <AssociationConnector Association="AHPModel.FK_Kriterij_Odluka" />
         <AssociationConnector Association="AHPModel.FK_UsporedbaKriterija_Kriterij" />
         <AssociationConnector Association="AHPModel.FK_UsporedbaKriterija_Kriterij1" />
+        <AssociationConnector Association="AHPModel.FK_Dnevnik_Projekt" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

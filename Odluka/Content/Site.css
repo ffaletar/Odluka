@@ -1,75 +1,321 @@
-﻿body {
+﻿body{
+    height: 100%;
+}
+html{
+    height: 100%;
 }
 *{
     margin: 0;
     padding: 0;
-    
+}
+.container{
+    min-height: 100%;
+    height: auto;
+    position:relative;
 }
 .glavna_zaglavlje{
     position: fixed;
     background-color: rgba(20, 19, 19, 1);
     border-right: 1px solid #1a1a1a;
-    width: 235px;
+    width: 17%;
     height: 100%;
     left: 0;
-    z-index: 9998;
+    z-index: 9997;
     /*box-shadow: 2px 2px 2px #4e4c4c;*/
 }
 .glavna_main{
     position:absolute;
-    margin-left: 235px;
+    margin-left: 17%;
     background-color: #ffffff;
-    width: calc(100% - 235px);
+    width: 83%;
     height: auto;
-    min-height: 1000px;
+    min-height: 100%;
 }
-.glavna_podnozje{
-    bottom: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #191919;
-    position:relative;
+.glavna_main_container{
+    width: 98%;
+    min-height: calc(100% - 20px);
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
 .unutarnji_wrapper{
-    width: 88%;
-    top: 100px;
+    width: 100%;
+    min-height: 100%;
+    position:absolute;
+    display: flex;
     height: auto;
-    margin: 0px auto;
-    display:flex;
 }
-.unutarnji_wrapper_lijevi{
-    width: 70%;
+
+
+
+.unutarnji_wrapper_desni{
+    width: 350px;
     height: auto;
-    display: inline-block;
+    min-height: 100px;
+}
+.unutarnji_wrapper_desni_container{
+    width: calc(100% - 20px);
+    height: auto;
+    position:relative;
+    top: 100px;
+    padding: 10px;
+}
+
+
+
+.unutarnji_wrapper_lijevi{
+    width: calc(100% - 320px);
+    height: auto;
     position: relative;
+    display: inline-block;
 }
 .unutarnji_wrapper_lijevi_naslov{
     width: 100%;
-    position: absolute;
+    position: relative;
     float: left;
     height: 100px;
     line-height: 100px;
-    color: #09b79d;
+    color: #6cbd4c;
 }
-.unutarnji_wrapper_lijevi_naslov>h1{
+.unutarnji_wrapper_lijevi_naslov>div{
+    width: auto;
+    position: relative;
+    float: left;
+    height: 100%;
+}
+.unutarnji_wrapper_lijevi_naslov>div>h1{
     margin-left: 30px;
+    font-family: 'Book Antiqua';
+    font-size: 40px;
+    line-height: 40px;
+    padding: 29px 0;
 }
+.unutarnji_wrapper_lijevi_naslov>div>h1>small{
+    font-family: 'Book Antiqua';
+    font-size: 10px;
+    display: block;
+    line-height: 1;
+    color: #b1b1b1;
+    margin-top: 5px;
+}
+.unutarnji_wrapper_lijevi_naslov>p{
+    margin-left: 30px;
+    font-family: 'Book Antiqua';
+    font-size: 10px;
+    line-height: 20px;
+    color: #1a1a1a;
+    top: 0px;
+    position: absolute;
+}
+
+
+
+/*home index*/
 .unutarnji_wrapper_lijevi_projekti{
     width: calc(100% - 40px);
     height: auto;
-    margin-top: 100px;
-    position: absolute;
+    position: relative;
     padding: 20px;
-    display: inline;
+    display: inline-block;
 }
-.unutarnji_wrapper_desni{
-    width: 30%;
-    height: 400px;
+/*projekt info*/
+.unutarnji_wrapper_lijevi_projekt_info{
+    width: calc(100% - 40px);
+    height: auto;
+    position: relative;
+    padding: 20px;
+    display: inline-block;
 }
+
+.projekt_info_alternative{
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+}
+.projekt_info_alternative h2{
+    color: #404040;
+    font-family: 'Book Antiqua';
+    margin-bottom: 20px;
+}
+.projekt_info_kriteriji{
+    width: 100%;
+    height: auto;
+}
+.projekt_info_kriteriji h2{
+    color: #404040;
+    font-family: 'Book Antiqua';
+    margin-bottom: 20px;
+}
+.gumb_na_alternative{
+    width: 250px;
+    height: 40px;
+    background-color: #8ad46d;
+    border-radius: 5px;
+    border: 1px solid #62a747;
+    /*float:right;*/
+    position:absolute;
+    top:30px;
+    right: 50px;
+    /*display: table;*/
+}
+.gumb_na_alternative:hover{
+    cursor:pointer;
+}
+.gumb_na_alternative_desni{
+    color:white;
+    font-family: 'Book Antiqua';
+    font-size: 20px;
+    text-align:center;
+    width: calc(100% - 50px);
+    height: 40px;
+    display:table-cell;
+    float:left;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.gumb_na_alternative_lijevi{
+    width: 20px;
+    height: 20px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #7eca60;
+    padding: 10px;
+    display:inline-block;
+    float:left;
+}
+.kartica_alternativa{
+    width: 200px;
+    height: 170px;
+    margin: 10px;
+    display: inline-block;
+    background-color: #fefefe;
+    position:relative;
+}
+.kartica_alternativa_podkartica{
+    width: 95%;
+    height: 90%;
+    bottom: 0;
+    right: 0;
+    border: 1px solid #c4c4c4;
+    position:absolute;
+    border-radius: 5px;
+    border-top: 8px solid #9cabce;
+    overflow:hidden;
+}
+.kartica_alternativa_podkartica_naziv{
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+    position: relative;
+    color: #7389bb;
+    font-size: 20px;
+    font-family: 'Book Antiqua';
+    vertical-align: middle;
+    text-align:center;
+}
+.kartica_alternativa_podkartica_opis{
+    width: 100%;
+    height: 50px;
+    position:relative;
+    font-family: 'Book Antiqua';
+    font-size: 12px;
+    padding: 3px;
+    color: #878686;
+    text-align:center;
+}
+.kartica_alternativa_podkartica_linkovi{
+    width: 55px;
+    height: 30px;
+    position: absolute;
+    right:5px;
+    bottom: 0px;
+}
+.kartica_alternativa_podkartica_linkovi img{
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    text-align: center;
+    margin: 5px;
+}
+.kartica_alternativa_krug{
+    width: 60px;
+    height:30px;
+    margin-top: -10px;
+    border-radius: 20px;
+    position: absolute;
+    border: 1px solid #b1b1b1;
+    background-color: #ffffff;
+}
+
+/*projekt info*/
+.kartica_opis_projekta{
+    width: calc(100% - 20px);
+    padding: 10px;
+    height: auto;
+    position: relative;
+    background-color: #faf7f7;
+}
+.kartica_opis_projekta>p{
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    font-family: 'Book Antiqua';
+    font-size: 20px;
+    color: #1a1a1a;
+}
+.kartica_opis_projekta_evaluacija{
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    font-family: 'Book Antiqua';
+    font-size: 20px;
+    color: #1a1a1a;
+    margin-top: 50px;
+}
+.dnevnik_projekt_item{
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
+    margin: 2px;
+}
+.naziv_dnevnik_item{
+    width: 90%;
+    height: 50px;
+    vertical-align: middle;
+    overflow: hidden;
+    display:inline-block;
+}
+.naziv_dnevnik_item p{
+    color: #1a1a1a;
+    font-family:  'Book Antiqua';
+    font-size: 15px;
+    line-height: 50px;
+    padding-left: 5px;
+}
+.dnevnik_projekt_item img{
+    width: 30px;
+    height: 30px;
+    display:inline-block;
+    position:relative;
+    top: 10px;
+}
+.projekt_wrapper_lijevi{
+    width: calc(100% - 500px);
+    height: auto;
+    position: relative;
+    display: inline-block;
+}
+.projekt_wrapper_desni{
+    width: 500px;
+    height: auto;
+    min-height: 100px;
+}
+
 .projekt_kartica {
     width: 220px;
     height: 160px;
     margin: 20px;
+    position:relative;
     background-color: white;
     border: 1px solid #c4c4c4;
     -moz-box-shadow: 0 0 15px #878686;
@@ -77,9 +323,16 @@
     box-shadow: 0 0 15px #b5b5b5;
     display: inline-block;
 }
-.projekt_kartica_gornji_dio{
+.projekt_kartica_gornji_dio_wrapper{
+    position: relative;
     width: 100%;
     height: 70%;
+}
+
+.projekt_kartica_gornji_dio{
+    margin: 10px;
+    width: calc(100%-20px);
+    height: calc(100%-20px);
     top: 0;
     position:relative;
 }
@@ -166,7 +419,7 @@
 .alternativa_redak_akcije{
     width: 100px;
     display: flex;
-    height: 100%;
+    height: 100px;
 }
 .ikonice{
     margin-left: 10px;
@@ -175,31 +428,64 @@
     width: 25px;
 }
 .gumb_dodaj_alternativu{
-    background-color:#20f224;
-    color: white;
+    background-color:#9cabce;
     display: flex;
-    width: 200px;
-    height:35px;
-    border-radius: 5px;
-    float: right;
-    margin-right: 90px;
+    width: 25px;
+    height: 25px;
+    border-radius: 35px;
     margin-top: 20px;
     cursor: pointer;
+    margin: 0 auto;
+    padding: 10px;
 }
 .gumb_dodaj_alternativu:hover{
-    background-color: #52f555;
+    background-color: #9aafdd;
 }
 .gumb_dodaj_alternativu>img{
-    height: 70%;
-    margin: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    width: 100%;
+    height: 100%;
 }
 .gumb_dodaj_alternativu>p{
     font-size: 20px;
     font-weight: 400;
     height: 80%;
     line-height: 35px;
+}
+.gumb_novi_projekt{
+    background-color: #6cbd4c;
+    width: 300px;
+    height: 60px;
+    position: relative;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+    font-family: 'Book Antiqua';
+    display: table;
+}
+.gumb_novi_projekt p{
+    vertical-align: middle;
+    line-height: 60px;
+}
+#popup_gumb{
+    width: 140px !important;
+    height: 40px !important;
+    position: absolute;
+    color: #ffffff;
+    font-family: 'Book Antiqua';
+    font-size: 13px !important;
+    border-radius: 5px;
+    bottom: 0;
+    right: 0;
+    border: none;
+    background-color: #6cbd4c;
+}
+#popup_gumb:hover{
+    cursor:pointer;
+}
+.gumb_novi_projekt{
+    cursor: pointer;
 }
 
 
@@ -214,17 +500,82 @@
     height: 100%;
 }
 
-.novi_projekt_popup_glavni{
+#projekt_popup{
+    display: none;
+}
+#nova_alternativa_popup{
+    display: none;
+}
+#uredi_alternativu_popup{
+    display: none;
+}
+#novi_kriterij_popup{
+    display: none;
+}
+
+.popup_wrapper{
+    width: 100%;
+    height: 100%;
+    position:relative;
+    display:inline-block;
+}
+.popup_header{
+    width: 100%;
+    height: 50px;
+    position:relative;
+    border-bottom: 1px solid #cec7c7;
+    overflow: hidden;
+}
+.popup_header_wrapper{
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    margin-top: 5px;
+    position: relative;
+}
+.popup_header_wrapper h1{
+    color: #1a1a1a;
+    font-size: 25px;
+    font-family: 'Book Antiqua';
+    vertical-align:middle;
+    line-height: 40px;
+}
+.popup_glavni{
+    width: 100%;
+    height: calc(100% - 50px);
+    position: relative;
+    overflow: hidden;
+}
+.popup_glavni_wrapper{
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    margin-top: 10px;
+    position: absolute;
+}
+#popup_forma{
+    position:relative;
     width: 100%;
     height: 100%;
 }
-.novi_projekt_popup_header{
-    width: 100%;
-    height: 50px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom: 1px solid #cec7c7;
+#popup_forma label{
+    font-family: 'Book Antiqua';
+    font-size: 20px;
 }
+#popup_forma input{
+    font-family: 'Book Antiqua';
+    font-size: 20px;
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+}
+#popup_opis_input{
+    width: calc(100% - 20px);
+    height: 80px;
+    line-height: 20px;
+    font-size: 20px;
+}
+
 
 #alternativa_popup{
     display: none;
@@ -242,8 +593,6 @@
 .nova_alternativa_popup_header{
     width: 100%;
     height: 50px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
     border-bottom: 1px solid #cec7c7;
 }
 .tablica_alternativa{
@@ -274,6 +623,25 @@
     cursor: pointer;
 
 }*/
+.treeview_projekt_info{
+    width: 90%;
+    height: auto;
+    margin-left: 20px;
+}
+.treeview_projekt_info ul{
+    padding-left: 40px;
+    list-style: none;
+}
+.treeview_projekt_info > ul {
+    padding-left: 0px;
+}
+.treeview_projekt_info > li > a {
+    font-weight: bold;
+}
+.treeview_projekt_info li{
+    line-height: 50px;
+}
+
 .treeview{
     width: 800px;
     height: auto;
@@ -294,7 +662,6 @@
 .kriteriji_list_element{
     border-top: 1px solid black;
     color:#1a1a1a;
-
 }
 .kriteriji_list_element_div{
     width: 100%;
@@ -351,15 +718,24 @@
     margin-bottom: 15px;
 }
 .popup{
-    width: 800px;
-    height: 500px;
+    margin: 0;
+    width: 600px;
+    height: 300px;
     position:fixed;
     z-index: 9999;
-    background-color: #f7f7f7;
+    background-color: rgba(247, 246, 246, 0.92);
     border: 1px solid #b4b4b4;
-    border-radius: 10px;
-    top: calc((100% - 500px)/2);
-    left: calc((100% - 800px + 235px)/2);
+    left: calc((100% - 600px)/2);
+    top: calc((100% - 300px)/2);
+}
+#zatamnjivac_pozadine{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(27, 27, 27, 0.87);
+    z-index: 9998;
+    display: none;
+
 }
 
 .boja_roditelj{
@@ -369,4 +745,17 @@
 .boja_dijete{
     background-color: #f9fbfb;
     padding-left: 10px;
+}
+
+
+.color-green {
+  color: green;
+}
+
+.color-blue {
+  color: blue;
+}
+
+.color-red {
+  color: red;
 }

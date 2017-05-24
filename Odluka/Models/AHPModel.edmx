@@ -21,7 +21,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="opis" Type="nvarchar" MaxLength="50" />
+          <Property Name="opis" Type="nvarchar" MaxLength="200" />
           <Property Name="projekt" Type="int" />
           <Property Name="vrijednost" Type="float" />
         </EntityType>
@@ -32,10 +32,11 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tipZapisa" Type="int" />
           <Property Name="vrijeme" Type="datetime" />
-          <Property Name="dodatneInformacije" Type="nvarchar" MaxLength="150" />
+          <Property Name="dodatneInformacije" Type="nvarchar" MaxLength="200" />
           <Property Name="stranica" Type="varchar" MaxLength="50" />
           <Property Name="korisnik" Type="int" />
           <Property Name="status" Type="int" />
+          <Property Name="projekt" Type="int" />
         </EntityType>
         <EntityType Name="FazaProjekta">
           <Key>
@@ -53,7 +54,7 @@
           <Property Name="prezime" Type="varchar" MaxLength="50" />
           <Property Name="nadimak" Type="nvarchar" MaxLength="50" />
           <Property Name="mail" Type="nvarchar" MaxLength="50" />
-          <Property Name="lozinka" Type="nvarchar" MaxLength="500" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="50" />
           <Property Name="status" Type="int" />
           <Property Name="tipKorisnika" Type="int" />
           <Property Name="aktivan" Type="bit" />
@@ -66,11 +67,13 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="opis" Type="nvarchar" MaxLength="50" />
+          <Property Name="opis" Type="nvarchar" MaxLength="200" />
           <Property Name="idRoditelja" Type="int" />
           <Property Name="projekt" Type="int" />
           <Property Name="vrijednost" Type="float" />
           <Property Name="konzistentno" Type="bit" />
+          <Property Name="status" Type="bit" />
+          <Property Name="obrisan" Type="bit" />
         </EntityType>
         <EntityType Name="Projekt">
           <Key>
@@ -98,6 +101,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+          <Property Name="tekst" Type="nvarchar" MaxLength="200" />
+          <Property Name="urlSlike" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UsporedbaKriterija">
           <Key>
@@ -141,6 +146,18 @@
             </Principal>
             <Dependent Role="Dnevnik">
               <PropertyRef Name="korisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dnevnik_Projekt">
+          <End Role="Projekt" Type="Self.Projekt" Multiplicity="0..1" />
+          <End Role="Dnevnik" Type="Self.Dnevnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekt">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dnevnik">
+              <PropertyRef Name="projekt" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -263,6 +280,10 @@
             <End Role="Korisnik" EntitySet="Korisnik" />
             <End Role="Dnevnik" EntitySet="Dnevnik" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dnevnik_Projekt" Association="Self.FK_Dnevnik_Projekt">
+            <End Role="Projekt" EntitySet="Projekt" />
+            <End Role="Dnevnik" EntitySet="Dnevnik" />
+          </AssociationSet>
           <AssociationSet Name="FK_Dnevnik_TipZapisa" Association="Self.FK_Dnevnik_TipZapisa">
             <End Role="TipZapisa" EntitySet="TipZapisa" />
             <End Role="Dnevnik" EntitySet="Dnevnik" />
@@ -317,7 +338,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="opis" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="opis" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="projekt" Type="Int32" />
           <Property Name="vrijednost" Type="Double" />
           <NavigationProperty Name="Projekt1" Relationship="Self.FK_Alternativa_Odluka" FromRole="Alternativa" ToRole="Projekt" />
@@ -329,12 +350,14 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipZapisa" Type="Int32" />
           <Property Name="vrijeme" Type="DateTime" Precision="3" />
-          <Property Name="dodatneInformacije" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="dodatneInformacije" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="stranica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="korisnik" Type="Int32" />
           <Property Name="status" Type="Int32" />
           <NavigationProperty Name="Korisnik1" Relationship="Self.FK_Dnevnik_Korisnik" FromRole="Dnevnik" ToRole="Korisnik" />
           <NavigationProperty Name="TipZapisa1" Relationship="Self.FK_Dnevnik_TipZapisa" FromRole="Dnevnik" ToRole="TipZapisa" />
+          <Property Name="projekt" Type="Int32" />
+          <NavigationProperty Name="Projekt1" Relationship="AHPModel.FK_Dnevnik_Projekt" FromRole="Dnevnik" ToRole="Projekt" />
         </EntityType>
         <EntityType Name="FazaProjekta">
           <Key>
@@ -353,7 +376,7 @@
           <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nadimak" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="lozinka" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="Int32" />
           <Property Name="tipKorisnika" Type="Int32" />
           <Property Name="aktivan" Type="Boolean" />
@@ -380,6 +403,7 @@
           <NavigationProperty Name="Korisnik1" Relationship="Self.FK_Projekt_Korisnik" FromRole="Projekt" ToRole="Korisnik" />
           <NavigationProperty Name="Kriterijs" Relationship="AHPModel.FK_Kriterij_Odluka" FromRole="Projekt" ToRole="Kriterij" />
           <Property Name="konzistentno" Type="Boolean" />
+          <NavigationProperty Name="Dnevniks" Relationship="AHPModel.FK_Dnevnik_Projekt" FromRole="Projekt" ToRole="Dnevnik" />
         </EntityType>
         <EntityType Name="TipKorisnika">
           <Key>
@@ -396,6 +420,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Dnevniks" Relationship="Self.FK_Dnevnik_TipZapisa" FromRole="TipZapisa" ToRole="Dnevnik" />
+          <Property Name="tekst" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="urlSlike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_AktivacijskiKod_Korisnik">
           <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
@@ -536,6 +562,10 @@
             <End Role="Kriterij" EntitySet="Kriterijs" />
             <End Role="UsporedbaKriterija" EntitySet="UsporedbaKriterijas" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dnevnik_Projekt" Association="AHPModel.FK_Dnevnik_Projekt">
+            <End Role="Projekt" EntitySet="Projekts" />
+            <End Role="Dnevnik" EntitySet="Dnevniks" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Kriterij">
           <Key>
@@ -543,7 +573,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="opis" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="opis" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="idRoditelja" Type="Int32" />
           <Property Name="projekt" Type="Int32" />
           <Property Name="vrijednost" Type="Double" />
@@ -553,6 +583,8 @@
           <NavigationProperty Name="UsporedbaKriterijas" Relationship="AHPModel.FK_UsporedbaKriterija_Kriterij" FromRole="Kriterij" ToRole="UsporedbaKriterija" />
           <NavigationProperty Name="UsporedbaKriterijas1" Relationship="AHPModel.FK_UsporedbaKriterija_Kriterij1" FromRole="Kriterij" ToRole="UsporedbaKriterija" />
           <Property Name="konzistentno" Type="Boolean" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="obrisan" Type="Boolean" />
         </EntityType>
         <EntityType Name="UsporedbaKriterija">
           <Key>
@@ -613,6 +645,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dnevnik_Projekt">
+          <End Type="AHPModel.Projekt" Role="Projekt" Multiplicity="0..1" />
+          <End Type="AHPModel.Dnevnik" Role="Dnevnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekt">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dnevnik">
+              <PropertyRef Name="projekt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -644,6 +688,7 @@
           <EntitySetMapping Name="Dnevniks">
             <EntityTypeMapping TypeName="AHPModel.Dnevnik">
               <MappingFragment StoreEntitySet="Dnevnik">
+                <ScalarProperty Name="projekt" ColumnName="projekt" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="tipZapisa" ColumnName="tipZapisa" />
                 <ScalarProperty Name="vrijeme" ColumnName="vrijeme" />
@@ -704,6 +749,8 @@
           <EntitySetMapping Name="TipZapisas">
             <EntityTypeMapping TypeName="AHPModel.TipZapisa">
               <MappingFragment StoreEntitySet="TipZapisa">
+                <ScalarProperty Name="urlSlike" ColumnName="urlSlike" />
+                <ScalarProperty Name="tekst" ColumnName="tekst" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="naziv" ColumnName="naziv" />
               </MappingFragment>
@@ -712,6 +759,8 @@
           <EntitySetMapping Name="Kriterijs">
             <EntityTypeMapping TypeName="AHPModel.Kriterij">
               <MappingFragment StoreEntitySet="Kriterij">
+                <ScalarProperty Name="obrisan" ColumnName="obrisan" />
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="konzistentno" ColumnName="konzistentno" />
                 <ScalarProperty Name="vrijednost" ColumnName="vrijednost" />
                 <ScalarProperty Name="projekt" ColumnName="projekt" />

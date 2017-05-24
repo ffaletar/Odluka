@@ -145,16 +145,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Angular.js" />
+    <Content Include="Content\InnerInteractiveContent.css" />
     <Content Include="Content\Odluka.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\add-1-icon--flatastic-1-iconset--custom-icon-design-0.png" />
+    <Content Include="Images\addedAlternativeIcon.jpg" />
+    <Content Include="Images\addedCriteria.jpg" />
+    <Content Include="Images\createdProjectIcon.jpg" />
     <Content Include="Images\delete-xxl.png" />
     <Content Include="Images\delete.png" />
+    <Content Include="Images\deleteIcon.png" />
+    <Content Include="Images\doneIcon.png" />
     <Content Include="Images\img_gear.png" />
+    <Content Include="Images\info.png" />
+    <Content Include="Images\justCreatedIcon.png" />
+    <Content Include="Images\openAlternatives.png" />
     <Content Include="Images\plus_icon.png" />
     <Content Include="Images\settings-icon.png" />
     <Content Include="Images\uredi.png" />
+    <Content Include="Images\urediIcon.png" />
+    <Content Include="Images\writeIcon.png" />
     <Content Include="Models\AHPModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AHPModel.edmx</DependentUpon>
@@ -929,11 +940,13 @@
     <Compile Include="Controllers\AlternativeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KriterijiController.cs" />
+    <Compile Include="Controllers\PregledController.cs" />
     <Compile Include="Controllers\PrijavaController.cs" />
     <Compile Include="Controllers\ProjektController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EvaluationController.cs" />
     <Compile Include="Helpers\Izvrsitelj.cs" />
     <Compile Include="Models\AHPModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -1025,6 +1038,7 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Views\Kriteriji\UsporedbaKriterija.cshtml" />
+    <Content Include="Views\Pregled\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -18,13 +18,18 @@ namespace Odluka.Controllers
             List<Kriterij> listaKriterija = new List<Kriterij>();
             using(AHPEntities db = new AHPEntities())
             {
-                listaKriterija = db.Kriterijs.Include(x => x.Projekt1).Where(x => x.Projekt1.id == id).OrderBy(a => a.idRoditelja).ToList();
+                listaKriterija = db.Kriterijs.Include(x => x.Projekt1).Where(x => x.Projekt1.id == id && x.obrisan != true).OrderBy(a => a.idRoditelja).ToList();
             }
+
+            PostaviPutanjeZaEvaluaciju(id);
+
+            string pocetnaStranica = EvaluationController.PocetnaStranica();
 
             ProjektListViewModel projektKriterijViewModel = new ProjektListViewModel()
             {
                 IdProjekta = id,
-                ListaKriterija = listaKriterija
+                ListaKriterija = listaKriterija,
+                pocetnaStranica = pocetnaStranica
             };
 
 
@@ -33,16 +38,24 @@ namespace Odluka.Controllers
 
         public ActionResult UsporedbaKriterija(int projekt, int? kriterij)
         {
+            PostaviPutanjeZaEvaluaciju(projekt);
+            string sljedecaStranica = SljedecaStranicaEvaluacije();
+            string prethodnaStranica = PrethodnaStranicaEvaluacije();
+
             AHPEntities db = new AHPEntities();
 
             List<UsporedbaKriterija> listaUsporedaba = db.UsporedbaKriterijas.Where(x => x.Kriterij.Projekt1.id == projekt && x.Kriterij3.Projekt1.id == projekt
-                                                        && x.Kriterij.idRoditelja == kriterij && x.Kriterij3.idRoditelja == kriterij).ToList();
+                                                        && x.Kriterij.idRoditelja == kriterij && x.Kriterij3.idRoditelja == kriterij 
+                                                        && x.Kriterij.obrisan != true && x.Kriterij3.obrisan != true).ToList();
 
             ProjektListViewModel projektKriterijViewModel = new ProjektListViewModel()
             {
                 IdProjekta = projekt,
-                ListaUsporedbaKriterija = listaUsporedaba
+                ListaUsporedbaKriterija = listaUsporedaba,
+                sljedecaStranica = sljedecaStranica,
+                prethodnaStranica = prethodnaStranica
             };
+
 
 
             return View(projektKriterijViewModel);
@@ -50,23 +63,19 @@ namespace Odluka.Controllers
 
         public ActionResult NoviKriterij(int idProjekta, int idRoditelja, String nazivKriterija, String opisKriterija)
         {
-
             AHPEntities db = new AHPEntities();
 
             var kriterij = db.Set<Kriterij>();
-            kriterij.Add(new Kriterij { naziv = nazivKriterija, opis = opisKriterija, projekt = idProjekta, idRoditelja = idRoditelja, konzistentno = false });
-
-            
-
+            kriterij.Add(new Kriterij { naziv = nazivKriterija, opis = opisKriterija, projekt = idProjekta, idRoditelja = idRoditelja, konzistentno = false, obrisan = false });
 
             if (db.SaveChanges() != 0)
             {
                 AzurirajUsporedbeKriterija(idProjekta);
+                PostaviPutanjeZaEvaluaciju(idProjekta);
                 return Redirect(Url.Action("Index", "Kriteriji", new { id = idProjekta }));
             }
 
             return Redirect(Url.Action("Index", "Kriteriji", new { id = idProjekta }));
-
         }
 
         public ActionResult BrisiKriterij(int id)
@@ -81,10 +90,14 @@ namespace Odluka.Controllers
 
             foreach(Kriterij kriterij in listaKriterijaZaBrisanje)
             {
+                kriterij.obrisan = true;
                 db.Kriterijs.Attach(kriterij);
-                db.Kriterijs.Remove(kriterij);
+                var entry = db.Entry(kriterij);
+                entry.Property(x => x.obrisan).IsModified = true;
                 db.SaveChanges();
             }
+
+            PostaviPutanjeZaEvaluaciju(id);
 
             return Redirect(Url.Action("Index", "Kriteriji", new { id = idProjekta }));
         }
@@ -117,7 +130,7 @@ namespace Odluka.Controllers
                     
                     if (kriterij1 != kriterij2 && kriteriji[i].idRoditelja == kriteriji[j].idRoditelja)
                     {
-                        if (!db.UsporedbaKriterijas.Any(x => x.kriterij1 == kriterij1 && x.kriterij2 == kriterij2) && !db.UsporedbaKriterijas.Any(x => x.kriterij1 == kriterij2 && x.kriterij2 == kriterij1))
+                        if (!db.UsporedbaKriterijas.Any(x => x.kriterij1 == kriterij1 && x.kriterij2 == kriterij2 && x.Kriterij.obrisan != false && x.Kriterij3.obrisan != false) && !db.UsporedbaKriterijas.Any(x => x.kriterij1 == kriterij2 && x.kriterij2 == kriterij1 && x.Kriterij.obrisan != false && x.Kriterij3.obrisan != false))
                         {
                             var usporedbaKriterija = db.Set<UsporedbaKriterija>();
                             usporedbaKriterija.Add(new UsporedbaKriterija { kriterij1 = kriteriji[i].id, kriterij2 = kriteriji[j].id, vrijednost = null });
@@ -194,12 +207,12 @@ namespace Odluka.Controllers
 
             if (roditelj != null)
             {
-                listaUsporedaba = db.UsporedbaKriterijas.Where(x => x.Kriterij.idRoditelja == roditelj).ToList();
+                listaUsporedaba = db.UsporedbaKriterijas.Where(x => x.Kriterij.idRoditelja == roditelj || x.Kriterij3.idRoditelja == roditelj).ToList();
                 kriteriji = db.Kriterijs.Where(x => x.idRoditelja == roditelj).ToList();
             }
             else
             {
-                listaUsporedaba = db.UsporedbaKriterijas.Where(x => x.Kriterij.idRoditelja == null).ToList();
+                listaUsporedaba = db.UsporedbaKriterijas.Where(x => x.Kriterij.idRoditelja == null || x.Kriterij3.idRoditelja == roditelj).ToList();
                 kriteriji = db.Kriterijs.Where(x => x.idRoditelja == null).ToList();
             }
 
@@ -207,5 +220,64 @@ namespace Odluka.Controllers
 
             return konzistentno;
         }
+
+
+        public void PostaviPutanjeZaEvaluaciju(int projektId)
+        {
+            AHPEntities db = new AHPEntities();
+            List<int?> listaRoditelja = db.Kriterijs.Where(x => x.projekt == projektId && x.Kriterij2.obrisan != true).Select(x => x.idRoditelja).Distinct().ToList();
+            List<Tuple<int, int?>> listaKriterija = new List<Tuple<int, int?>>();
+
+            foreach (int? objekt in listaRoditelja)
+            {
+                Tuple<int, int?> tuple = Tuple.Create(projektId, objekt);
+                listaKriterija.Add(tuple);
+            }
+
+            
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+
+            for (int i = 0; i< listaKriterija.Count; i++)
+            {
+                string putanja = "/Kriteriji/UsporedbaKriterija";
+
+                int projekt = listaKriterija[i].Item1;
+                int? roditelj = listaKriterija[i].Item2;
+
+                if(roditelj != null)
+                {
+                    putanja = putanja + "?projekt=" + projekt + "&kriterij=" + roditelj;
+                }
+                else
+                {
+                    putanja = putanja + "?projekt=" + projekt;
+                }
+                
+                dictionary.Add(i, putanja);
+            }
+
+            EvaluationController.listaLinkova = dictionary;
+        }
+
+        public string SljedecaStranicaEvaluacije()
+        {
+            string url = Request.Url.ToString();
+            string skraceniUrl = url.Substring(url.IndexOf("/Kriteriji"));
+
+            string sljedecaStranica = EvaluationController.SljedecaStranica(skraceniUrl);
+
+            return sljedecaStranica;
+        }
+        public string PrethodnaStranicaEvaluacije()
+        {
+            string url = Request.Url.ToString();
+            string skraceniUrl = url.Substring(url.IndexOf("/Kriteriji"));
+
+            string prethodnaStranica = EvaluationController.PrethodnaStranica(skraceniUrl);
+
+            return prethodnaStranica;
+        }
+
+
     }
 }

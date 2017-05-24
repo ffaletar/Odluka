@@ -29,6 +29,8 @@ namespace Odluka.Models
         public Nullable<int> projekt { get; set; }
         public Nullable<double> vrijednost { get; set; }
         public Nullable<bool> konzistentno { get; set; }
+        public Nullable<bool> status { get; set; }
+        public Nullable<bool> obrisan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Kriterij> Kriterij1 { get; set; }

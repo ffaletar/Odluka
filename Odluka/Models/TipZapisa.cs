@@ -22,6 +22,8 @@ namespace Odluka.Models
     
         public int id { get; set; }
         public string naziv { get; set; }
+        public string tekst { get; set; }
+        public string urlSlike { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dnevnik> Dnevniks { get; set; }

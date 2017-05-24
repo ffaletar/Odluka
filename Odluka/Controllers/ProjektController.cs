@@ -25,11 +25,16 @@ namespace Odluka.Controllers
                                                   where kriterij.Projekt1.id == id
                                                   select kriterij).ToList();
 
+            List<Dnevnik> listaZapisaIzDnevnika = (from dnevnik in db.Dnevniks
+                                             where dnevnik.Projekt1.id == id orderby dnevnik.vrijeme descending
+                                             select dnevnik).ToList();
+
             ProjektViewModel projektViewModel = new ProjektViewModel()
             {
                 Projekt = projekt,
                 ListaAlternativa = listaAlternativa,
                 ListaKriterija = listaKriterija,
+                ListaZapisaDnevnika = listaZapisaIzDnevnika,
                 BrojAlternativa = listaAlternativa.Count()
             };
 
@@ -62,12 +67,23 @@ namespace Odluka.Controllers
             return View(projektViewModel);
         }
 
-        public ActionResult NoviProjekt(String nazivProjekta, String opisProjekta)
+        public ActionResult NoviProjekt(String naziv, String opis, int korisnik)
         {
+            AHPEntities db = new AHPEntities();
+            DateTime date = DateTime.Now;
 
+            Projekt projekt = new Projekt { naziv = naziv, opis = opis, korisnik = korisnik, datum = date, zadnjaPromjena = date, konzistentno = false, fazaProjekta = 3 };
 
+            var projekti = db.Set<Projekt>();
+            projekti.Add(projekt);
 
-            return Redirect(Url.Action("Index", "Alternative", new { id = 17 }));
+            if (db.SaveChanges() != 0)
+            {
+                int idProjekta = projekt.id;
+                return Redirect(Url.Action("Info", "Projekt", new { id = idProjekta }));
+            }
+
+            return null;
         }
 
         

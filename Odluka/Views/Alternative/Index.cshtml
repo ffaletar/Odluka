@@ -11,14 +11,36 @@
 <div class="projekt_controller_container">
 
     <h2 class="srednji_naslov" onclick="prikaziPopup()">Alternative</h2>
-    <table class="tablica_alternativa">
         @foreach (Alternativa alternativa in Model.ListaAlternativa)
         {
             var idAlternative = alternativa.id;
             var nazivAlternative = alternativa.naziv;
             var opisAlternative = alternativa.opis;
 
-            <tr class="tablica_alternativa_redak">
+            
+            <div class="kartica_alternativa">
+                <div class="kartica_alternativa_podkartica">
+                    <p class="kartica_alternativa_podkartica_naziv">
+                        @alternativa.naziv
+                    </p>
+                    <p class="kartica_alternativa_podkartica_opis">
+                        @alternativa.opis
+                    </p>
+                    <div class="kartica_alternativa_podkartica_linkovi">
+                        <img src="~/Images/urediIcon.png" onclick="@String.Format("prikaziPopupUrediAlternativu('{0}','{1}','{2}')", alternativa.id, alternativa.naziv, alternativa.opis);"/>
+                        <img src="~/Images/deleteIcon.png"  onclick="location.href='@Url.Action("BrisiAlternativu", "Alternative", new { idAlternative = alternativa.id })'"/>
+                    </div>
+                </div>
+                @if (alternativa.vrijednost != null && alternativa.vrijednost != 0)
+                {
+                    <p class="kartica_alternativa_krug">
+
+                    </p>
+                }
+            </div>
+
+
+            @*<tr class="tablica_alternativa_redak">
                 <td>
                     @alternativa.naziv
                 </td>
@@ -40,10 +62,11 @@
                 <td>
                     <a onclick="location.href='@Url.Action("BrisiAlternativu", "Alternative", new { idAlternative = alternativa.id })'">Briši alternativu</a>
                 </td>
-            </tr>
+            </tr>*@
         }
-        
-    </table>
-    <div class="gumb_dodaj_alternativu">Dodaj alternativu</div>
+
+    <div class="gumb_dodaj_alternativu" onclick="prikaziPopupNovaAlternativa()">
+        <img src="~/Images/plus_icon.png" />
+    </div>
 
 </div>

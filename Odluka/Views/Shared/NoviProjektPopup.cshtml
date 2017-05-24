@@ -1,15 +1,25 @@
-﻿<div class="popup" id="projekt_popup">
-    <div class="novi_projekt_popup_header">
+﻿@model ProjektListViewModel
 
+<div class="popup" id="projekt_popup">
+    <div class="popup_wrapper">
+        <div class="popup_header">
+            <div class="popup_header_wrapper">
+                <h1>
+                    Novi projekt
+                </h1>
+            </div>
+        </div>
+        <div class="popup_glavni">
+            <div class="popup_glavni_wrapper">
+                <form action="/Projekt/NoviProjekt" id="popup_forma">
+                    <label for="popup_naziv_input">Naziv projekta</label><br/>
+                    <input type="hidden" id="id_korisnika_input" name="korisnik" value="@Model.idKorisnika"/>
+                    <input type="text" id="popup_naziv_input" name="naziv"/><br/>
+                    <label for="popup_opis_input">Opis projekta</label><br/>
+                    <textarea type="text" id="popup_opis_input" name="opis" cols="40" rows="5"></textarea>
+                    <input type="submit" value="Kreiraj projekt" id="popup_gumb"/>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="novi_projekt_popup_glavni">
-        <form action="/Projekt/NoviProjekt">
-            <label for="naziv_projekta_input">Naziv projekta</label>
-            <input type="text" id="naziv_projekta_input" name="nazivProjekta" />
-            <label for="opis_projekta_input">Opis projekta</label>
-            <input type="text" id="opis_projekta_input" name="opisProjekta" />
-            <input type="submit" value="Kreiraj projekt" />
-        </form>
-    </div>
-
 </div>

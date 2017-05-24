@@ -26,14 +26,19 @@
                 }
                 @{ List<int> listaPregledanihKriterija = new List<int>();}
                 @{ int brojPredaka = 0;}
-                @Treeview.GetTreeView(Model.ListaKriterija, idRoditelja, listaPregledanihKriterija, brojPredaka)
+                @Treeview.GetTreeView(Model.ListaKriterija, idRoditelja, listaPregledanihKriterija, brojPredaka, 0)
             </ul>
-            }else
-            {
-                <p>Ne postoje kriteriji</p>
-            }
+        }else
+        {
+            <p>Ne postoje kriteriji</p>
+        }
 
     </div>
+    @if (Model.pocetnaStranica != null)
+    {
+        <a href="@Model.pocetnaStranica">Započni evaluaciju</a>
+    }
+   
 
     
 

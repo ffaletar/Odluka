@@ -1,31 +1,109 @@
-﻿@model List<Odluka.Models.Projekt>
+﻿@model ProjektListViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.Partial("~/Views/Shared/NoviProjektPopup.cshtml", Model)
+
 
 <div class="unutarnji_wrapper">
     <div class="unutarnji_wrapper_lijevi">
         <div class="unutarnji_wrapper_lijevi_naslov">
-            <h1>Projekti</h1>
+            <div>
+                <h1>Projekti</h1>
+            </div>
         </div>
         <div class="unutarnji_wrapper_lijevi_projekti">
-            @if (Model != null)
+            @if (Model.ListaProjekata != null)
             {
-                foreach (var projekt in Model)
+                foreach (var projekt in Model.ListaProjekata)
                 {
-                    <a href="/Projekt/Info/@projekt.id">
-                        <div class="projekt_kartica">
-                            <div class="projekt_kartica_gornji_dio">
-                                <h2>@projekt.naziv</h2>
-                                <h3>@projekt.FazaProjekta1.naziv</h3>
+                    string idProjekta = "projekt" + @projekt.id;
+                    <div class="projekt_kartica_container" onmouseover="prikaziHoverProjekt('@idProjekta')" onmouseout="sakrijHoverProjekt('@idProjekta')">
+                        <div class="projekt_kartica_standard">
+                            <div class="projekt_kartica_standard_main_dio_container">
+                                <div class="projekt_kartica_standard_main_dio">
+                                    <div class="faza_projekta_standard_container">
+                                        @if (projekt.fazaProjekta == 1)
+                                        {
+                                            <img src="~/Images/doneIcon.png">
+                                        }
+                                        else if (projekt.fazaProjekta == 2)
+                                        {
+                                            <img src="~/Images/writeIcon.png">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Images/justCreatedIcon.png">
+                                        }
+                                    </div>
+                                    <div class="naziv_projekta_standard_container">
+                                        <h1>@projekt.naziv</h1>
+                                    </div>
+                                    <div class="opis_projekta_standard_container">
+                                        <p>
+                                            @projekt.opis
+                                        </p>
+                                    </div>
+                                    <div class="datum_krairanja_projekta_standard_container">
+                                        <p>
+                                            @projekt.datum
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="projekt_kartica_donji_dio">
-                                <div class="projekt_datum_div">@projekt.datum</div>
-                            </div>
+                            @if (projekt.fazaProjekta == 1)
+                            {
+                                <div class="projekt_kartica_standard_donja_traka_1">
+                                    
+                                </div>
+                            }
+                            else if (projekt.fazaProjekta == 2)
+                            {
+                                <div class="projekt_kartica_standard_donja_traka_2">
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="projekt_kartica_standard_donja_traka_3">
+                                    
+                                </div>
+                            }
                         </div>
-                    </a>
+                        
+                        <div class="projekt_kartica_hover" id="@idProjekta">
+                            <div class="projekt_kartica_hover_main_dio_container">
+                                <div class="projekt_kartica_hover_main_dio">
+
+                                </div>
+                            </div>
+                            <a href="/Projekt/Info/@projekt.id" style="text-decoration: none;">
+                                @if (projekt.fazaProjekta == 1)
+                                {
+                                    <div class="projekt_kartica_hover_link1">
+                                        <h1 class="projekt_kartica_link">Uredi projekt</h1>
+                                    </div>
+                                }
+                                else if (projekt.fazaProjekta == 2)
+                                {
+                                    <div class="projekt_kartica_hover_link2">
+                                        <h1 class="projekt_kartica_link">Nastavi uređivanje</h1>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="projekt_kartica_hover_link3">
+                                        <h1 class="projekt_kartica_link">Započni s projektom</h1>
+                                    </div>
+                                }
+                            </a>
+                            
+
+                        </div>
+                    </div>
+                    
                 }
             }else
             {
@@ -33,10 +111,14 @@
             }
 
         </div>
-        <a>Kreiraj novi projekt</a>
-
     </div>
-    <div class="unutarnji_wrapper_desni"></div>
+    <div class="unutarnji_wrapper_desni">
+        <div class="unutarnji_wrapper_desni_container">
+            <div class="gumb_novi_projekt" onclick="prikaziPopupNoviProjekt()">
+                <p>Novi projekt</p>
+            </div>
+        </div>
+    </div>
 
 </div>
 

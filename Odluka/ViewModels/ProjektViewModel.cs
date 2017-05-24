@@ -13,6 +13,7 @@ namespace Odluka.ViewModels
         public int BrojAlternativa { get; set; }
         public List<Kriterij> ListaKriterija { get; set; }
         public List<Alternativa> ListaAlternativa { get; set; }
+        public List<Dnevnik> ListaZapisaDnevnika { get; set; }
 
     }
 }

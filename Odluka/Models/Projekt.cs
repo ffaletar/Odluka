@@ -19,6 +19,7 @@ namespace Odluka.Models
         {
             this.Alternativas = new HashSet<Alternativa>();
             this.Kriterijs = new HashSet<Kriterij>();
+            this.Dnevniks = new HashSet<Dnevnik>();
         }
     
         public int id { get; set; }
@@ -36,5 +37,7 @@ namespace Odluka.Models
         public virtual Korisnik Korisnik1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Kriterij> Kriterijs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dnevnik> Dnevniks { get; set; }
     }
 }

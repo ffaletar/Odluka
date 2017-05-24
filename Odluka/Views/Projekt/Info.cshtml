@@ -10,7 +10,111 @@
 </div>*@
 
 
-<div class="projekt_controller_container">
+<div class="unutarnji_wrapper">
+    <a href="/Alternative/Index/@Model.Projekt.id"> 
+        <div class="gumb_na_alternative" >
+            <img src="~/Images/openAlternatives.png" class="gumb_na_alternative_lijevi" />
+            <div class="gumb_na_alternative_desni"> Uredi projekt</div>
+        </div>
+    </a>
+    
+    <div class="projekt_wrapper_lijevi">
+        <div class="unutarnji_wrapper_lijevi_naslov">
+            <div>
+                <h1>
+                    @Model.Projekt.naziv<br />
+                    <small>Zadnja promjena @Model.Projekt.zadnjaPromjena</small>
+                </h1>
+            </div>
+        </div>
+        <div class="unutarnji_wrapper_lijevi_projekt_info">
+            <div class="projekt_info_alternative">
+                <h2>
+                    Alternative
+                </h2>
+                @for(int i=0; i<Model.ListaAlternativa.Count(); i++)
+                {
+                    var a = i + 1 + ".";
+                    <div class="kartica_alternativa">
+                        <div class="kartica_alternativa_podkartica">
+                            <p class="kartica_alternativa_podkartica_naziv">
+                                @Model.ListaAlternativa[i].naziv
+                            </p>
+                            <p class="kartica_alternativa_podkartica_opis">
+                                @Model.ListaAlternativa[i].opis
+                            </p>
+                        </div>
+                        @if (Model.ListaAlternativa[i].vrijednost != null && Model.ListaAlternativa[i].vrijednost != 0)
+                        {
+                            <p class="kartica_alternativa_krug">
+
+                            </p>
+                        }
+                    </div>
+                }
+                <br/>
+                
+            </div> <br/>
+            <div class="projekt_info_kriteriji">
+                <h2>
+                    Kriteriji
+                </h2>
+                <div class="treeview_projekt_info">
+                    @{int idRoditelja = 0; }
+                    @if (Model != null && Model.ListaKriterija.Count() > 0)
+                    {
+                        <ul>
+                            @if (Model.ListaKriterija.FirstOrDefault().idRoditelja == null)
+                            {
+                                idRoditelja = 0;
+                            }
+                            else
+                            {
+                                idRoditelja = (int)Model.ListaKriterija.FirstOrDefault().idRoditelja;
+                            }
+                            @{ List<int> listaPregledanihKriterija = new List<int>();}
+                            @{ int brojPredaka = 0;}
+                            @Treeview.GetTreeView(Model.ListaKriterija, idRoditelja, listaPregledanihKriterija, brojPredaka, 1)
+                        </ul>
+                    }else{
+                        <p>Ne postoje kriteriji</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="projekt_wrapper_desni">
+        <div class="unutarnji_wrapper_desni_container">
+            <div class="kartica_opis_projekta">
+                @if (Model.Projekt.opis != null)
+                {
+                    <p>
+                        @Model.Projekt.opis
+                    </p>
+                }
+                <div class="kartica_opis_projekta_evaluacija">
+                    @foreach (Dnevnik dnevnik in Model.ListaZapisaDnevnika)
+                    {
+                        <div class="dnevnik_projekt_item">
+                            <div class="naziv_dnevnik_item">
+                                <p>
+                                    @dnevnik.vrijeme | @dnevnik.TipZapisa1.tekst @dnevnik.dodatneInformacije
+                                </p>
+                            </div>
+                            <img src="~/Images/@dnevnik.TipZapisa1.urlSlike" />
+                            
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@*<div class="projekt_controller_container">
 
     <h1 class="veliki_naslov">@Model.Projekt.naziv</h1>
     <hr />
@@ -60,7 +164,7 @@
 
    
 
-</div>
+</div>*@
 
 
 

@@ -15,7 +15,8 @@
         <div ng-controller="UsporedbeController">
             @foreach (UsporedbaKriterija usporedbaKriterija in Model.ListaUsporedbaKriterija)
             {
-                <h2 ng-style="backColor">@usporedbaKriterija.Kriterij.naziv - @usporedbaKriterija.Kriterij3.naziv</h2>
+                //ng -class="{'color-red': students === 'True', 'color-blue': students === 'False'}"
+                <h2 ng-style="backColor" >@usporedbaKriterija.Kriterij.naziv - @usporedbaKriterija.Kriterij3.naziv</h2>
                 <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 9)'>9</a>
                 <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 8)'>8</a>
                 <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 7)'>7</a>
@@ -34,8 +35,11 @@
                 <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.125)'>8</a>
                 <a ng-click='upisiUsporedbu(@usporedbaKriterija.kriterij1, @usporedbaKriterija.kriterij2, 0.11111)'>9</a>
             }
+            {{students}}
         </div>
-        {{aaa}}
+        <a href="@Model.prethodnaStranica">Prethodna</a>
+        <a href="@Model.sljedecaStranica">Sljedeća</a>
+        
         @* //TODO u donjem desnom kutu kvačica za konzistentnost, kao u android Floating action button *@
     </div>
 }

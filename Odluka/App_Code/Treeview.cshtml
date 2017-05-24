@@ -1,5 +1,5 @@
 ﻿
-@helper GetTreeView(List<Odluka.Models.Kriterij> kriterij, int idRoditelja, List<int> listaPregledanihKriterija, int brojPredaka)
+@helper GetTreeView(List<Odluka.Models.Kriterij> kriterij, int idRoditelja, List<int> listaPregledanihKriterija, int brojPredaka, int projektInfo)
 {
 System.Web.Mvc.UrlHelper urlHelper = new System.Web.Mvc.UrlHelper(Request.RequestContext);
 foreach (var i in kriterij.Where(a => a.idRoditelja.Equals(idRoditelja) || idRoditelja.Equals(0)))
@@ -17,11 +17,15 @@ foreach (var i in kriterij.Where(a => a.idRoditelja.Equals(idRoditelja) || idRod
                         <p class="kriteriji_list_element_div_naziv">@i.naziv</p>
                         <p class="kriteriji_list_element_div_opis">@i.opis</p>
                         
-                        <div class="kriteriji_list_element_div_gumbi">
-                            <img src="~/Images/add-1-icon--flatastic-1-iconset--custom-icon-design-0.png" onclick="prikaziPopupNoviKriterij(@i.Projekt1.id, @i.id)"/>
-                            <img src="~/Images/delete.png" onclick="location.href='@urlHelper.Action("BrisiKriterij", "Kriteriji", new { id = i.id })'"/>
-                            <img src="~/Images/uredi.png"/>
-                        </div>
+                        @if (projektInfo == 0)
+                        {
+                            <div class="kriteriji_list_element_div_gumbi">
+                                <img src="~/Images/add-1-icon--flatastic-1-iconset--custom-icon-design-0.png" onclick="prikaziPopupNoviKriterij(@i.Projekt1.id, @i.id, '@i.naziv')" />
+                                <img src="~/Images/delete.png" onclick="location.href='@urlHelper.Action("BrisiKriterij", "Kriteriji", new { id = i.id })'" />
+                                <img src="~/Images/uredi.png" />
+                            </div>
+                        }
+                        
                         <p class="kriteriji_list_element_div_vrijednost">@if (i.vrijednost != null){ @i.vrijednost }</p>
                         
 
@@ -29,7 +33,7 @@ foreach (var i in kriterij.Where(a => a.idRoditelja.Equals(idRoditelja) || idRod
                         @if (podkriterij > 0)
                         {
                             <ul>
-                                @Treeview.GetTreeView(kriterij, i.id, listaPregledanihKriterija, brojPredaka)
+                                @Treeview.GetTreeView(kriterij, i.id, listaPregledanihKriterija, brojPredaka, projektInfo)
                             </ul>
                         }
                 </li>
